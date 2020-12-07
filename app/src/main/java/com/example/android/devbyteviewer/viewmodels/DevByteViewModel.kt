@@ -39,16 +39,14 @@ import java.io.IOException
  */
 class DevByteViewModel(application: Application) : AndroidViewModel(application) {
 
-//    private val viewModelJob = Job()
-//    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-//
-
     private val database = getDatabase(application)
     private val videosRepository = VideosRepository(database)
 
     init {
         viewModelScope.launch {
-            videosRepository.refreshVideos()
+            try {
+                videosRepository.refreshVideos()
+            } catch (e: Exception) {}
         }
     }
 
